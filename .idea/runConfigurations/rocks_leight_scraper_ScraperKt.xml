@@ -1,0 +1,23 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="rocks.leight.scraper.ScraperKt" type="JetRunConfigurationType" factoryName="Kotlin" nameIsGenerated="true">
+    <module name="scraper.main" />
+    <option name="VM_PARAMETERS" value="" />
+    <option name="PROGRAM_PARAMETERS" value="" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <option name="PASS_PARENT_ENVS" value="true" />
+    <option name="MAIN_CLASS_NAME" value="rocks.leight.scraper.ScraperKt" />
+    <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+    <envs>
+      <env name="DATABASE_URL" value="jdbc:postgresql://localhost:15432/scraper" />
+      <env name="DATABASE_USER" value="scraper" />
+      <env name="DATABASE_PASSWORD" value="scraper" />
+      <env name="SCRAPER_CHROMIE" value="http://localhost:9192/" />
+      <env name="HTTP_PORT" value="6060" />
+      <env name="HTTP_HOST" value="http://localhost:6060" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

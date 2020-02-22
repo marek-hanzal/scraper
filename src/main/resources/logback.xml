@@ -1,0 +1,35 @@
+<!--
+    https://logback.qos.ch/manual/configuration.html
+    https://logback.qos.ch/manual/appenders.html
+-->
+<configuration scan="true" scanPeriod="1 minutes">
+    <contextName>Scraper</contextName>
+    <shutdownHook/>
+    <jmxConfigurator/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%boldGreen(%d{YYYY-mm-dd HH:mm:ss.SSS}) %highlight(%-5level) %blue(%-18.18thread) %white(%-28.28logger{28}) %cyan([job: %boldBlue(%36.36X{jobId})]): %highlight(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="runtime" class="ch.qos.logback.core.FileAppender">
+        <file>logs/runtime.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{YYYY-mm-dd HH:mm:ss.SSS} %-5level %-18.18thread %-28.28logger{28} [job: %36.36X{jobId}]: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="io.netty" level="off"/>
+    <logger name="com.zaxxer" level="off"/>
+    <logger name="ktor" level="off"/>
+    <logger name="Exposed" level="off"/>
+    <!--    <logger name="rocks.leight.core" level="off"/>-->
+
+    <root level="trace">
+        <appender-ref ref="console"/>
+    </root>
+
+    <include optional="true" file="logback.local.xml"/>
+</configuration>

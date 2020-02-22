@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'maven'
+apply plugin: 'application'
+
+mainClassName = 'rocks.leight.scraper.ScraperKt'
+group "rocks.leight"
+version({ ->
+    return System.getenv("VERSION") ?: 'SNAPSHOT'
+}())
+
+sourceSets {
+    main {
+        resources {
+            output.dir(output.resourcesDir, builtBy: tasks.create('application-properties', WriteProperties) {
+                properties = ["scraper.version": version]
+                outputFile = file("${output.resourcesDir}/application.properties")
+            })
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Scraper',
+                'Implementation-Vendor': 'rocks.leight',
+                'Implementation-Version': version
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+repositories {
+    jcenter()
+    maven {
+        url "https://artifactory.leight.rocks/artifactory/leight/"
+    }
+}
+
+dependencies {
+    compile "rocks.leight:core:$leight_core_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+}

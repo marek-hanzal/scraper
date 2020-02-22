@@ -1,0 +1,7 @@
+.idea/workspace.xml
+.gradle
+build
+logs/
+out/
+application.conf
+logback.local.xml

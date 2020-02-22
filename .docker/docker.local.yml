@@ -1,0 +1,39 @@
+version: '2'
+services:
+  scraper-chromie:
+    image: docker.leight.rocks/tools/chromie
+    container_name: scaper-chromie
+    ports:
+      - "9192:8080"
+    networks:
+      - internal
+
+  scraper-postgres:
+    image: postgres:10.4
+    container_name: scraper-postgres
+    environment:
+      - POSTGRES_USER=scraper
+      - POSTGRES_PASSWORD=scraper
+    ports:
+      - "15432:5432"
+    networks:
+      - internal
+
+  scraper-phppgadmin:
+    image: dockage/phppgadmin:latest
+    container_name: scraper-phppgadmin
+    environment:
+      - PHP_PG_ADMIN_SERVER_HOST=scraper-postgres
+      - PHP_PG_ADMIN_SHOW_OIDS=false
+      - PHP_PG_ADMIN_SERVER_DEFAULT_DB=scraper
+      - PHP_PG_ADMIN_OWNED_ONLY=true
+      - PHP_PG_ADMIN_SHOW_ADVANCED=true
+      - PHP_PG_ADMIN_DEFAULT_LANG=english
+      - PHP_PG_ADMIN_THEME=cappuccino
+    networks:
+      - internal
+    ports:
+      - "15400:80"
+
+networks:
+  internal:
